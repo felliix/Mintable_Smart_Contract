@@ -4,6 +4,7 @@ const MintableStorage = artifacts.require('./MintableStorage.sol');
 const ERC721Generator = artifacts.require('./ERC721Generator.sol');
 
 module.exports = async function (deployer, network, accounts) {
+ 
   if (network === 'test') {
     return;
   }
@@ -12,6 +13,7 @@ module.exports = async function (deployer, network, accounts) {
   let donation;
   let donation721;
   let generator;
+ 
   await deployer.deploy(MintableStorage)
   .then(function (instance) {
     storage = instance;
@@ -40,4 +42,5 @@ module.exports = async function (deployer, network, accounts) {
   await storage.setApprovedContract(ERC721Generator.address, true);
   await donation721.setMintableDonation(MintableDonation.address);
   await generator.setStorageContract(MintableStorage.address);
+
 }
